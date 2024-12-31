@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PlacesService } from '../../services';
 
 @Component({
   selector: 'app-search-bar',
@@ -10,13 +11,15 @@ import { Component } from '@angular/core';
 export class SearchBarComponent {
   private debounceTimer?: NodeJS.Timeout;
 
-  constructor() {}
+  constructor(
+    private placesService: PlacesService,
+  ) {}
 
   public onQueryChanged(query: string = '') {
     if(this.debounceTimer) clearTimeout(this.debounceTimer);
 
     this.debounceTimer = setTimeout(() => {
-      console.log('Mandar este query:', query);
+      this.placesService.getPlacesByQuery(query);
     }, 500);
   }
 }
