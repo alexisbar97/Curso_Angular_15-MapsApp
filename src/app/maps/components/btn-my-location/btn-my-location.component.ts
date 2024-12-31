@@ -18,6 +18,6 @@ export class BtnMyLocationComponent {
     if(!this.placesServices.isUserLocationReady) throw Error('No hay ubicación de usuario.');
     if(!this.mapService.isMapReady) throw Error('No se ha inicializado el mapa.');
 
-    this.mapService.flyTo(this.placesServices.useLocation!);
+    this.mapService.flyTo(this.placesServices.userLocation!);
   }
 }

@@ -8,12 +8,12 @@ import { MapsService } from './maps.service';
 })
 
 export class PlacesService {
-  public useLocation?: [number,number];
+  public userLocation?: [number,number];
   public isLoadingPlaces: boolean = false;
   public places: Feature[] = [];
 
   get isUserLocationReady(): boolean {
-    return !!this.useLocation;
+    return !!this.userLocation;
   }
 
   constructor(
@@ -27,8 +27,8 @@ export class PlacesService {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
         ({coords}) => {
-          this.useLocation = [coords.longitude, coords.latitude];
-          resolve(this.useLocation);
+          this.userLocation = [coords.longitude, coords.latitude];
+          resolve(this.userLocation);
         },
         (err) => {
           alert('No se pudo obtener la geolocalización.')
@@ -46,20 +46,20 @@ export class PlacesService {
       return;
     }
 
-    if(!this.useLocation) throw Error('No hay userLocation');
+    if(!this.userLocation) throw Error('No hay userLocation');
 
     this.isLoadingPlaces = true;
 
     this.placesApi.get<PlacesResponse>(`/${ query }.json?`,{
       params: {
-        proximity: this.useLocation.join(','),
+        proximity: this.userLocation.join(','),
       }
     })
     .subscribe(resp => {
       this.isLoadingPlaces = false;
       this.places = resp.features;
 
-      this.mapService.createMarkersFromPlaces(this.places,this.useLocation!);
+      this.mapService.createMarkersFromPlaces(this.places,this.userLocation!);
     });
   }
 }

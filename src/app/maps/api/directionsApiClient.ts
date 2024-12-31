@@ -28,7 +28,7 @@ export class DirectionsApiClient extends HttpClient {
         overview: 'simplified',
         steps: false,
         access_token: environment.apiKey,
-        ...options.params
+        ...options?.params
       }
     });
   }
