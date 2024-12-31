@@ -25,7 +25,7 @@ export class MapViewComponent implements AfterViewInit {
       container: this.mapDivElement?.nativeElement,
       style: 'mapbox://styles/mapbox/streets-v12',
       center: this.placesService.useLocation,
-      zoom: 8,
+      zoom: 10,
     });
 
     const popup = new Popup()

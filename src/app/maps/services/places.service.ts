@@ -23,7 +23,7 @@ export class PlacesService {
     this.getUserLocation();
   }
 
-  getUserLocation(): Promise<[number,number]> {
+  public async getUserLocation(): Promise<[number,number]> {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
         ({coords}) => {
@@ -42,7 +42,7 @@ export class PlacesService {
   getPlacesByQuery(query: string = ''){
     if(query.length === 0) {
       this.isLoadingPlaces = false;
-      this.places	 = [];
+      this.places	= [];
       return;
     }
 
@@ -59,7 +59,7 @@ export class PlacesService {
       this.isLoadingPlaces = false;
       this.places = resp.features;
 
-      this.mapService.createMarkersFromPlaces(this.places);
+      this.mapService.createMarkersFromPlaces(this.places,this.useLocation!);
     });
   }
 }
