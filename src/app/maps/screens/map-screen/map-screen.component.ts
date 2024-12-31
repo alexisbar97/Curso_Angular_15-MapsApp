@@ -12,4 +12,8 @@ export class MapScreenComponent {
   constructor(
     private placesService: PlacesService,
   ) {}
+
+  get isUserLocationReady() {
+    return this.placesService.isUserLocationReady;
+  }
 }
