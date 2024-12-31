@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MapsService, PlacesService } from '../../services';
 
 @Component({
   selector: 'app-btn-my-location',
@@ -8,7 +9,15 @@ import { Component } from '@angular/core';
 })
 
 export class BtnMyLocationComponent {
+  constructor(
+    private placesServices: PlacesService,
+    private mapService: MapsService,
+  ){}
+
   public goToMyLocation() {
-    console.log('Ir a mi ubicación.');
+    if(!this.placesServices.isUserLocationReady) throw Error('No hay ubicación de usuario.');
+    if(!this.mapService.isMapReady) throw Error('No se ha inicializado el mapa.');
+
+    this.mapService.flyTo(this.placesServices.useLocation!);
   }
 }
