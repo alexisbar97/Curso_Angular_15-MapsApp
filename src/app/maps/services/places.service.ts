@@ -39,18 +39,22 @@ export class PlacesService {
   }
 
   getPlacesByQuery(query: string = ''){
+    if(query.length === 0) {
+      this.isLoadingPlaces = false;
+      this.places	 = [];
+      return;
+    }
+
     if(!this.useLocation) throw Error('No hay userLocation');
 
     this.isLoadingPlaces = true;
 
-    this.placesApi.get<PlacesResponse>(`${ query }`,{
+    this.placesApi.get<PlacesResponse>(`/${ query }.json?`,{
       params: {
         proximity: this.useLocation.join(','),
       }
     })
     .subscribe(resp => {
-      console.log(resp.features);
-
       this.isLoadingPlaces = false;
       this.places = resp.features;
     });

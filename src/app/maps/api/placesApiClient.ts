@@ -7,7 +7,7 @@ import { environment } from "../../../environments/environments";
 })
 
 export class PlacesApiClient extends HttpClient {
-  public baseUrl: string = 'https://api.mapbox.com/search/geocode/v6/forward?q='
+  public baseUrl: string = 'https://api.mapbox.com/geocoding/v5/mapbox.places'
 
   constructor(handler: HttpHandler) {
     super(handler);
